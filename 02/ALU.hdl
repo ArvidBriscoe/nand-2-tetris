@@ -54,7 +54,7 @@ CHIP ALU {
    Mux16(a=zeroX, b=nzeroX, sel=nx, out=notX);
    Mux16(a=zeroY, b=nzeroY, sel=ny, out=notY);
 
-   //outs:
+   //output finding
     Add16(a=notX, b=notY, out=XaddY);
     And16(a=notX, b=notY, out=XandY);
     Mux16(a=XaddY, b=XandY, sel=f, out=fXY);
@@ -62,10 +62,11 @@ CHIP ALU {
     Not16(in=fXY, out=notfXY);
     Mux16(a=fXY, b=notfXY, sel=no, out=nXY);
 
-    Or8Way(in=val[0...7],out=val1one);
-    Or8Way(in=val[8...15], out=val1two);
+    //Or16Way kekw
+    Or16Way(in=nXY,out=val);
     Not(in=val1,out=zx);
-    And16(a=,b=,out=,out=);
-    Or16(a=,b=false,out=);
+    And16(a=true, b=nXY, out=ng, out=drop);
+
+    Or16(a=nXY, b=false, out=out);
 }
 }
